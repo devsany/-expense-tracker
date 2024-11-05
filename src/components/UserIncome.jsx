@@ -16,6 +16,8 @@ const UserIncome = () => {
   const [pri, setPri] = useState(true);
   const [sec, setSec] = useState(false);
   const [userKey, setUserKey] = useState("");
+  const [primaryError, setPrimaryError] = useState({});
+  const [secondaryError, setSecondaryError] = useState({});
   const [primaryIncomeData, setPrimaryIncomeData] = useState({
     type: "",
     date: "",
@@ -57,48 +59,82 @@ const UserIncome = () => {
   };
   const handlePrimaryIncomeData = async (e) => {
     e.preventDefault(); // Prevent page refresh
-    const db = getDatabase(app);
-    const postsRef = ref(db, `user/datas/${userKey}/primaryIncome`); // Adjust the reference according to your structure
+    const error = {};
+    // type: "",
+    // date: "",
+    // description: "",
+    // amount: "",
+    if (!primaryIncomeData.type) {
+      error.type = "Required";
+    } else if (!primaryIncomeData.date) {
+      error.date = "required";
+    } else if (!primaryIncomeData.description) {
+      error.description = "required";
+    } else if (!primaryIncomeData) {
+      error.amount = "required";
+    } else {
+      const db = getDatabase(app);
 
-    // Push form data to Firebase
-    push(postsRef, {
-      type: primaryIncomeData.type,
-      date: primaryIncomeData.date,
-      description: primaryIncomeData.description,
-      amount: primaryIncomeData.amount,
-      timestamp: serverTimestamp(),
-    })
-      .then(() => {
-        console.log("Data pushed successfully!");
-        // Clear the form after submission
-        alert("data is pushed");
+      const postsRef = ref(db, `user/datas/${userKey}/primaryIncome`); // Adjust the reference according to your structure
+
+      // Push form data to Firebase
+      push(postsRef, {
+        type: primaryIncomeData.type,
+        date: primaryIncomeData.date,
+        description: primaryIncomeData.description,
+        amount: primaryIncomeData.amount,
+        timestamp: serverTimestamp(),
       })
-      .catch((error) => {
-        console.error("Error pushing data:", error);
-      });
+        .then(() => {
+          console.log("Data pushed successfully!");
+          // Clear the form after submission
+          alert("data is pushed");
+        })
+        .catch((error) => {
+          console.error("Error pushing data:", error);
+        });
+    }
+    setPrimaryError(error);
   };
   const handleSecondaryIncomeData = async (e) => {
     e.preventDefault(); // Prevent page refresh
-    const db = getDatabase(app);
-    const postsRef = ref(db, `user/datas/${userKey}/seconderyIncome`); // Adjust the reference according to your structure
+    const error = {};
+    // type: "",
+    // date: "",
+    // category: "",
+    // description: "",
+    // amount: "",
+    if (!primaryIncomeData.type) {
+      error.type = "Required";
+    } else if (!primaryIncomeData.date) {
+      error.date = "required";
+    } else if (!primaryIncomeData.description) {
+      error.description = "required";
+    } else if (!primaryIncomeData) {
+      error.amount = "required";
+    } else {
+      const db = getDatabase(app);
+      const postsRef = ref(db, `user/datas/${userKey}/seconderyIncome`); // Adjust the reference according to your structure
 
-    // Push form data to Firebase
-    push(postsRef, {
-      type: secondaryIncomeData.type,
-      date: secondaryIncomeData.date,
-      category: secondaryIncomeData.category,
-      description: secondaryIncomeData.description,
-      amount: secondaryIncomeData.amount,
-      timestamp: serverTimestamp(),
-    })
-      .then(() => {
-        console.log("Data pushed successfully!");
-        // Clear the form after submission
-        alert("data is pushed");
+      // Push form data to Firebase
+      push(postsRef, {
+        type: secondaryIncomeData.type,
+        date: secondaryIncomeData.date,
+        category: secondaryIncomeData.category,
+        description: secondaryIncomeData.description,
+        amount: secondaryIncomeData.amount,
+        timestamp: serverTimestamp(),
       })
-      .catch((error) => {
-        console.error("Error pushing data:", error);
-      });
+        .then(() => {
+          console.log("Data pushed successfully!");
+          // Clear the form after submission
+          alert("data is pushed");
+        })
+        .catch((error) => {
+          console.error("Error pushing data:", error);
+        });
+    }
+    setSecondaryError(error);
     //   id: `post${postsArray.length + 1}`, // Generate a unique ID
     //   type: primaryIncomeData.type,
     //   date: primaryIncomeData.date,
@@ -160,6 +196,9 @@ const UserIncome = () => {
                     })
                   }
                 />
+                {primaryError && (
+                  <div className="text-red-400">{primaryError.type}</div>
+                )}
                 <label htmlFor="date">Date</label>
                 <input
                   type="date"
@@ -172,6 +211,9 @@ const UserIncome = () => {
                     })
                   }
                 />
+                {primaryError && (
+                  <div className="text-red-400">{primaryError.date}</div>
+                )}
 
                 <label htmlFor="description">Enter Description</label>
                 <input
@@ -185,6 +227,10 @@ const UserIncome = () => {
                     })
                   }
                 />
+                {primaryError && (
+                  <div className="text-red-400">{primaryError.description}</div>
+                )}
+
                 <label htmlFor="amount">Amount</label>
                 <input
                   type="number"
@@ -197,6 +243,10 @@ const UserIncome = () => {
                     })
                   }
                 />
+                {primaryError && (
+                  <div className="text-red-400">{primaryError.amount}</div>
+                )}
+
                 <button type="submit">Submit</button>
               </form>
             </div>
@@ -211,6 +261,7 @@ const UserIncome = () => {
                     type="text"
                     placeholder="Enter source of Income"
                     value={secondaryIncomeData.type}
+                    required
                     onChange={(e) =>
                       setSecondaryIncomeData({
                         ...secondaryIncomeData,
@@ -218,10 +269,14 @@ const UserIncome = () => {
                       })
                     }
                   />
+                  {secondaryError && (
+                    <div className="text-red-500">{secondaryError.type}</div>
+                  )}
                   <label htmlFor="date">Date</label>
                   <input
                     type="date"
                     placeholder="Source income date"
+                    required
                     value={secondaryIncomeData.date}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -230,10 +285,15 @@ const UserIncome = () => {
                       })
                     }
                   />
+                  {secondaryError && (
+                    <div className="text-red-500">{secondaryError.date}</div>
+                  )}
+
                   <label htmlFor="category">Category</label>
                   <input
                     type="text"
                     placeholder="Enter Category"
+                    required
                     value={secondaryIncomeData.category}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -242,10 +302,17 @@ const UserIncome = () => {
                       })
                     }
                   />
+                  {secondaryError && (
+                    <div className="text-red-500">
+                      {secondaryError.category}
+                    </div>
+                  )}
+
                   <label htmlFor="description">Enter Description</label>
                   <input
                     type="text"
                     placeholder="Enter Description"
+                    required
                     value={secondaryIncomeData.description}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -254,10 +321,17 @@ const UserIncome = () => {
                       })
                     }
                   />
+                  {secondaryError && (
+                    <div className="text-red-500">
+                      {secondaryError.description}
+                    </div>
+                  )}
+
                   <label htmlFor="amount">Amount</label>
                   <input
                     type="number"
                     placeholder="Enter amount"
+                    required
                     value={secondaryIncomeData.amount}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -266,6 +340,10 @@ const UserIncome = () => {
                       })
                     }
                   />
+                  {secondaryError && (
+                    <div className="text-red-500">{secondaryError.amount}</div>
+                  )}
+
                   <button type="submit">Submit</button>
                 </form>
               </div>

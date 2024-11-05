@@ -134,17 +134,17 @@ const Registration = () => {
         mobile: answers.mobile,
         addhar: answers.addhar,
         token: token,
-        primaryIncome: [""],
-        seconderyIncome: [""],
-        expendture: [""],
+        primaryIncome: [],
+        seconderyIncome: [],
+        expendture: [],
         timestamp: serverTimestamp(),
-        modeOfIncome: [""],
+        modeOfIncome: [],
       })
         .then(() => {
           alert("data saved successfully");
-          // window.location.reload();
-          // setAnswers({});
-          // nav("/login");
+          window.location.reload();
+          setAnswers({});
+          nav("/login");
         })
         .catch((err) => {
           console.error("error", err.message);

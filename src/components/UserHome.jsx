@@ -33,6 +33,8 @@ const UserHome = () => {
 
     if (/\d/.test(mode)) {
       error.number = "Mode of income should not be in number";
+    } else if (!mode) {
+      error.mode = "required";
     } else {
       setModeItem([...modeItem, mode]);
       const db = getDatabase(app);
@@ -86,8 +88,10 @@ const UserHome = () => {
             name="mode"
             value={mode}
             onChange={(e) => setMode(e.target.value)}
+            required
           />
           {errors && <div className="text-red-600">{errors.number}</div>}
+          {errors && <div className="text-red-600">{errors.mode}</div>}
           <button onClick={handleAdd}>Add</button>
           {modeItem.map((item) => (
             <li>{item}</li>
