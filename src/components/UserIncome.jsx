@@ -14,6 +14,7 @@ const UserIncome = () => {
   const { id } = useParams();
   console.log(id);
   const [pri, setPri] = useState(true);
+  const [data, setData] = useState([]);
   const [sec, setSec] = useState(false);
   const [userKey, setUserKey] = useState("");
   const [primaryError, setPrimaryError] = useState({});
@@ -32,6 +33,19 @@ const UserIncome = () => {
     description: "",
     amount: "",
   });
+
+  //   const modeOfIncomeKeys = Object.keys(data[0].modeOfIncome);
+  //   const modeOfIncomeValues = Object.values(data[0].modeOfIncome);
+
+  //   modeOfIncomeKeys.forEach((key) => {
+  //     console.log("Key:", key); // Prints each key (e.g., -OAwHLQVKO0tXsUDagvW)
+  //     console.log("Value:", data[0].modeOfIncome[key]); // Accesses the corresponding value
+  //   });
+
+  //   modeOfIncomeValues.forEach((item) => {
+  //     console.log("Mode:", item.mode); // Prints each mode value (e.g., "apple shop")
+  //   });
+
   const handlePrimaryIncome = () => {
     setPri(!pri);
     setSec(false);
@@ -40,18 +54,39 @@ const UserIncome = () => {
     setSec(!sec);
     setPri(false);
   };
+
+  const fetchDataForOption = async () => {
+    const db = getDatabase(app);
+    const dataRef = ref(db, `user/datas/${userKey}/modeOfIncome`);
+    const snapshot = await get(dataRef);
+    if (snapshot.exists()) {
+      setData(
+        Object.values(snapshot.val())
+        // .filter((item) => {
+        //   return item.token === id;
+        // })
+      );
+      console.log(Object.values(snapshot.val()));
+    } else {
+      alert("Do you want to allow the option for Income");
+    }
+  };
+  console.log(data);
   const fetchData = async () => {
     const db = getDatabase(app);
-    const dataRef = ref(db, "user/datas");
+    const dataRef = ref(db, `user/datas`);
     const snapshot = await get(dataRef);
     if (snapshot.exists()) {
       const entries = Object.entries(snapshot.val());
+
       console.log("entries", entries);
+
       // Find the entry where name is "token as id"
       const foundEntry = entries.find(([key, value]) => value.token === id);
       if (foundEntry) {
         const [key, userData] = foundEntry;
         setUserKey(key); // Output: user1 (or whatever the key is)
+        console.log(key);
       } else {
         console.log("John Doe not found");
       }
@@ -146,7 +181,8 @@ const UserIncome = () => {
   console.log(userKey);
   useEffect(() => {
     fetchData();
-  }, []);
+    fetchDataForOption();
+  });
   return (
     <div>
       <div className="grid border grid-cols-12">
@@ -230,8 +266,8 @@ const UserIncome = () => {
                 {primaryError && (
                   <div className="text-red-400">{primaryError.description}</div>
                 )}
-
-                <label htmlFor="amount">Amount</label>
+                
+                 <label htmlFor="amount">Amount</label>
                 <input
                   type="number"
                   placeholder="Enter amount"
@@ -246,7 +282,21 @@ const UserIncome = () => {
                 {primaryError && (
                   <div className="text-red-400">{primaryError.amount}</div>
                 )}
-
+                <select name="" id="">
+                  {data.map((item, index) => {
+                    return (
+                      <>
+                        {/* {item.modeOfIncome.map((item, index) => {
+                          return (
+                            <> */}
+                        <option>{item.mode}</option>
+                        {/* </>
+                          );
+                        })} */}
+                      </>
+                    );
+                  })}
+                </select>
                 <button type="submit">Submit</button>
               </form>
             </div>
