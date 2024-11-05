@@ -14,7 +14,14 @@ import firebase from "firebase/compat/app";
 const Registration = () => {
   const [data, setData] = useState([]);
   const [inc, setInc] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState({
+    name: "",
+    profession: "",
+    email: "",
+    password: "",
+    mobile: "",
+    addhar: "",
+  });
   const [errors, setErrors] = useState({});
   const [token, setToken] = useState("");
   const generateRandomString = useCallback(() => {
@@ -83,10 +90,10 @@ const Registration = () => {
     (e) => {
       setAnswers({
         ...answers,
-        [field[inc].key]: e.target.value,
+        [field[inc].key]: e.target.value || "",
       });
     },
-    [answers]
+    [inc, field]
   );
 
   // const fetchData = async () => {
@@ -131,12 +138,13 @@ const Registration = () => {
         seconderyIncome: [""],
         expendture: [""],
         timestamp: serverTimestamp(),
+        modeOfIncome: [""],
       })
         .then(() => {
           alert("data saved successfully");
-          window.location.reload();
-          setAnswers({});
-          nav("/login");
+          // window.location.reload();
+          // setAnswers({});
+          // nav("/login");
         })
         .catch((err) => {
           console.error("error", err.message);
@@ -166,7 +174,7 @@ const Registration = () => {
         {inc > 0 && (
           <div
             onClick={() => {
-              setInc(inc - 1);
+              setInc((p) => p - 1);
             }}
           >
             Back
@@ -180,10 +188,11 @@ const Registration = () => {
           <>
             <div
               onClick={() => {
-                setInc(inc + 1);
+                setInc((p) => p + 1);
+                console.log(inc);
               }}
             >
-              Next
+              Nexts
             </div>
           </>
         )}
