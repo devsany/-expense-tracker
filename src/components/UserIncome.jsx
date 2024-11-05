@@ -33,6 +33,7 @@ const UserIncome = () => {
     description: "",
     amount: "",
   });
+  const [options, setOptions] = useState("");
 
   //   const modeOfIncomeKeys = Object.keys(data[0].modeOfIncome);
   //   const modeOfIncomeValues = Object.values(data[0].modeOfIncome);
@@ -119,6 +120,7 @@ const UserIncome = () => {
         description: primaryIncomeData.description,
         amount: primaryIncomeData.amount,
         timestamp: serverTimestamp(),
+        option: options,
       })
         .then(() => {
           console.log("Data pushed successfully!");
@@ -133,43 +135,43 @@ const UserIncome = () => {
   };
   const handleSecondaryIncomeData = async (e) => {
     e.preventDefault(); // Prevent page refresh
-    const error = {};
-    // type: "",
-    // date: "",
-    // category: "",
-    // description: "",
-    // amount: "",
-    if (!primaryIncomeData.type) {
-      error.type = "Required";
-    } else if (!primaryIncomeData.date) {
-      error.date = "required";
-    } else if (!primaryIncomeData.description) {
-      error.description = "required";
-    } else if (!primaryIncomeData) {
-      error.amount = "required";
-    } else {
-      const db = getDatabase(app);
-      const postsRef = ref(db, `user/datas/${userKey}/seconderyIncome`); // Adjust the reference according to your structure
+    // const error = {};
+    // // type: "",
+    // // date: "",
+    // // category: "",
+    // // description: "",
+    // // amount: "",
+    // if (!primaryIncomeData.type) {
+    //   error.type = "Required";
+    // } else if (!primaryIncomeData.date) {
+    //   error.date = "required";
+    // } else if (!primaryIncomeData.description) {
+    //   error.description = "required";
+    // } else if (!primaryIncomeData) {
+    //   error.amount = "required";
+    // } else {
+    const db = getDatabase(app);
+    const postsRef = ref(db, `user/datas/${userKey}/seconderyIncome`); // Adjust the reference according to your structure
 
-      // Push form data to Firebase
-      push(postsRef, {
-        type: secondaryIncomeData.type,
-        date: secondaryIncomeData.date,
-        category: secondaryIncomeData.category,
-        description: secondaryIncomeData.description,
-        amount: secondaryIncomeData.amount,
-        timestamp: serverTimestamp(),
+    // Push form data to Firebase
+    push(postsRef, {
+      type: secondaryIncomeData.type,
+      date: secondaryIncomeData.date,
+      category: secondaryIncomeData.category,
+      description: secondaryIncomeData.description,
+      amount: secondaryIncomeData.amount,
+      timestamp: serverTimestamp(),
+    })
+      .then(() => {
+        console.log("Data pushed successfully!");
+        // Clear the form after submission
+        alert("data is pushed");
       })
-        .then(() => {
-          console.log("Data pushed successfully!");
-          // Clear the form after submission
-          alert("data is pushed");
-        })
-        .catch((error) => {
-          console.error("Error pushing data:", error);
-        });
-    }
-    setSecondaryError(error);
+      .catch((error) => {
+        console.error("Error pushing data:", error);
+      });
+    // }
+    // setSecondaryError(error);
     //   id: `post${postsArray.length + 1}`, // Generate a unique ID
     //   type: primaryIncomeData.type,
     //   date: primaryIncomeData.date,
@@ -201,6 +203,17 @@ const UserIncome = () => {
           <div>
             <NavLink to={`/home/${id}/Income`}>Income</NavLink>
           </div>
+          <div>
+            <NavLink to={`/home/${id}/viewPrimaryIncome`}>
+              Primary Income
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/viewSecondaryIncome`}>
+              Secondary Income
+            </NavLink>
+          </div>
+          {/* "/home/:id/viewPrimaryIncome" */}
         </div>
         <div className="border col-span-10">
           <div className="flex">
@@ -222,6 +235,7 @@ const UserIncome = () => {
               <form action="" onSubmit={handlePrimaryIncomeData}>
                 <label htmlFor="type">Source of income</label>
                 <input
+                  required
                   type="text"
                   placeholder="Enter source of Income"
                   value={primaryIncomeData.type}
@@ -237,6 +251,7 @@ const UserIncome = () => {
                 )}
                 <label htmlFor="date">Date</label>
                 <input
+                  required
                   type="date"
                   placeholder="Source income date"
                   value={primaryIncomeData.date}
@@ -253,6 +268,7 @@ const UserIncome = () => {
 
                 <label htmlFor="description">Enter Description</label>
                 <input
+                  required
                   type="text"
                   placeholder="Enter Description"
                   value={primaryIncomeData.description}
@@ -266,9 +282,10 @@ const UserIncome = () => {
                 {primaryError && (
                   <div className="text-red-400">{primaryError.description}</div>
                 )}
-                
-                 <label htmlFor="amount">Amount</label>
+
+                <label htmlFor="amount">Amount</label>
                 <input
+                  required
                   type="number"
                   placeholder="Enter amount"
                   value={primaryIncomeData.amount}
@@ -282,14 +299,19 @@ const UserIncome = () => {
                 {primaryError && (
                   <div className="text-red-400">{primaryError.amount}</div>
                 )}
-                <select name="" id="">
+                <select
+                  name="mode"
+                  id="mode"
+                  onChange={(e) => setOptions(e.target.value)}
+                >
+                  <option value="">Select mode of Income</option>
                   {data.map((item, index) => {
                     return (
                       <>
                         {/* {item.modeOfIncome.map((item, index) => {
                           return (
                             <> */}
-                        <option>{item.mode}</option>
+                        <option value={item.mode}>{item.mode}</option>
                         {/* </>
                           );
                         })} */}
@@ -308,10 +330,10 @@ const UserIncome = () => {
                 <form action="" onSubmit={handleSecondaryIncomeData}>
                   <label htmlFor="type">Source of income</label>
                   <input
+                    required
                     type="text"
                     placeholder="Enter source of Income"
                     value={secondaryIncomeData.type}
-                    required
                     onChange={(e) =>
                       setSecondaryIncomeData({
                         ...secondaryIncomeData,
@@ -319,14 +341,14 @@ const UserIncome = () => {
                       })
                     }
                   />
-                  {secondaryError && (
+                  {/* {secondaryError && (
                     <div className="text-red-500">{secondaryError.type}</div>
-                  )}
+                  )} */}
                   <label htmlFor="date">Date</label>
                   <input
+                    required
                     type="date"
                     placeholder="Source income date"
-                    required
                     value={secondaryIncomeData.date}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -335,15 +357,15 @@ const UserIncome = () => {
                       })
                     }
                   />
-                  {secondaryError && (
+                  {/* {secondaryError && (
                     <div className="text-red-500">{secondaryError.date}</div>
-                  )}
+                  )} */}
 
                   <label htmlFor="category">Category</label>
                   <input
+                    required
                     type="text"
                     placeholder="Enter Category"
-                    required
                     value={secondaryIncomeData.category}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -352,17 +374,17 @@ const UserIncome = () => {
                       })
                     }
                   />
-                  {secondaryError && (
+                  {/* {secondaryError && (
                     <div className="text-red-500">
                       {secondaryError.category}
                     </div>
-                  )}
+                  )} */}
 
                   <label htmlFor="description">Enter Description</label>
                   <input
+                    required
                     type="text"
                     placeholder="Enter Description"
-                    required
                     value={secondaryIncomeData.description}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -371,17 +393,17 @@ const UserIncome = () => {
                       })
                     }
                   />
-                  {secondaryError && (
+                  {/* {secondaryError && (
                     <div className="text-red-500">
                       {secondaryError.description}
                     </div>
-                  )}
+                  )} */}
 
                   <label htmlFor="amount">Amount</label>
                   <input
+                    required
                     type="number"
                     placeholder="Enter amount"
-                    required
                     value={secondaryIncomeData.amount}
                     onChange={(e) =>
                       setSecondaryIncomeData({
@@ -390,9 +412,9 @@ const UserIncome = () => {
                       })
                     }
                   />
-                  {secondaryError && (
+                  {/* {secondaryError && (
                     <div className="text-red-500">{secondaryError.amount}</div>
-                  )}
+                  )} */}
 
                   <button type="submit">Submit</button>
                 </form>

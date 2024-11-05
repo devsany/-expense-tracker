@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import Login from "./components/auth-user/Login";
 import UserHome from "./components/UserHome";
 import UserIncome from "./components/UserIncome";
+import ViewPrimaryIncome from "./components/ViewPrimaryIncome";
+import UserSecondaryIncome from "./components/UserSecondaryIncome";
 
 function App() {
   return (
@@ -21,7 +23,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home/:id" element={<UserHome />} />
           <Route path="/home/:id/Income" element={<UserIncome />} />
-
+          <Route
+            path="/home/:id/viewPrimaryIncome"
+            element={<ViewPrimaryIncome />}
+          />
+          <Route
+            path="/home/:id/viewSecondaryIncome"
+            element={<UserSecondaryIncome />}
+          />
           {/* /home/${id}/Income */}
         </Routes>
       </BrowserRouter>

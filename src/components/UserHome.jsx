@@ -64,7 +64,7 @@ const UserHome = () => {
       <div className="grid border grid-cols-12">
         <div className="border col-span-2">
           <div className="flex justify-between">
-            <div>
+            <div className="border">
               <NavLink to={`/home/${id}`}>
                 User Detail <User className=" cursor-pointer" />{" "}
               </NavLink>
@@ -76,6 +76,16 @@ const UserHome = () => {
           </div>
           <div>
             <NavLink to={`/home/${id}/Income`}>Income</NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/viewPrimaryIncome`}>
+              Primary Income
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/viewSecondaryIncome`}>
+              Secondary Income
+            </NavLink>
           </div>
         </div>
         <div className="border col-span-10">
