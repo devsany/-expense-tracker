@@ -7,6 +7,9 @@ import UserHome from "./components/UserHome";
 import UserIncome from "./components/UserIncome";
 import ViewPrimaryIncome from "./components/ViewPrimaryIncome";
 import UserSecondaryIncome from "./components/UserSecondaryIncome";
+import ExpencesInput from "./components/expences/ExpencesInput";
+import ViewExpendtureSection from "./components/expences/ViewExpendtureSection";
+import Summary from "./components/Summary";
 
 function App() {
   return (
@@ -31,6 +34,12 @@ function App() {
             path="/home/:id/viewSecondaryIncome"
             element={<UserSecondaryIncome />}
           />
+          <Route path="/home/:id/input_expencess" element={<ExpencesInput />} />
+          <Route
+            path="/home/:id/view_expencess"
+            element={<ViewExpendtureSection />}
+          />
+          <Route path="/home/:id/view_summary" element={<Summary />} />
           {/* /home/${id}/Income */}
         </Routes>
       </BrowserRouter>

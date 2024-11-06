@@ -17,17 +17,36 @@ const UserHome = () => {
     const snapshot = await get(dataRef);
     if (snapshot.exists()) {
       const entries = Object.entries(snapshot.val());
-      console.log("entries", entries);
+
       // Find the entry where name is "token as id"
       const foundEntry = entries.find(([key, value]) => value.token === id);
       if (foundEntry) {
         const [key, userData] = foundEntry;
         setUserKey(key); // Output: user1 (or whatever the key is)
       } else {
-        console.log("John Doe not found");
+        console.log("Data found");
       }
     }
   };
+  console.log(userKey);
+  const fetchData1 = async () => {
+    const db = getDatabase(app);
+    const dataRef = ref(db, `user/datas/${userKey}`);
+    const snapshot = await get(dataRef);
+    if (snapshot.exists()) {
+      const entries = Object.values(snapshot.val());
+      setData(entries);
+
+      // Find the entry where name is "token as id"
+      // const foundEntry = entries.find(([key, value]) => value.token === id);
+      // if (foundEntry) {
+      //   const [key, userData] = foundEntry;
+      //   setUserKey(key); // Output: user1 (or whatever the key is)
+    } else {
+      console.log("Data is not found");
+    }
+  };
+  console.log(data);
   const handleAdd = () => {
     const error = {};
 
@@ -55,9 +74,10 @@ const UserHome = () => {
     }
     setErrors(error);
   };
-  console.log(data);
+
   useEffect(() => {
     fetchData();
+    fetchData1();
   }, []);
   return (
     <div>
@@ -87,8 +107,22 @@ const UserHome = () => {
               Secondary Income
             </NavLink>
           </div>
+          <div>
+            <NavLink to={`/home/${id}/input_expencess`}>
+              Expendture section
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/view_expencess`}>
+              Anylise Expencess section
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/view_summary`}>Summary</NavLink>
+          </div>
         </div>
         <div className="border col-span-10">
+          {/* <div>{data[0]}</div> */}
           {/* display the user data */}
           <label htmlFor="mode">Mode of income</label>
           <input
@@ -103,6 +137,7 @@ const UserHome = () => {
           {errors && <div className="text-red-600">{errors.number}</div>}
           {errors && <div className="text-red-600">{errors.mode}</div>}
           <button onClick={handleAdd}>Add</button>
+
           {modeItem.map((item) => (
             <li>{item}</li>
           ))}

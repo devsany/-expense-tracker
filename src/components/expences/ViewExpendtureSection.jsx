@@ -1,10 +1,10 @@
 import { get, getDatabase, ref } from "firebase/database";
-import { ArrowBigLeft, ArrowBigRight, Settings, User } from "lucide-react";
+import { Settings, User } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import app from "../firebase/firebaseConfig";
+import app from "../../firebase/firebaseConfig";
 
-const ViewPrimaryIncome = () => {
+const ViewExpendtureSection = () => {
   const { id } = useParams();
   const [userKey, setUserKey] = useState("");
   const [data, setData] = useState([]);
@@ -31,7 +31,7 @@ const ViewPrimaryIncome = () => {
   };
   const fetchPrimaryData = async () => {
     const db = getDatabase(app);
-    const postsRef = ref(db, `user/datas/${userKey}/primaryIncome`); // Adjust the reference according to your structure
+    const postsRef = ref(db, `user/datas/${userKey}/expendture`); // Adjust the reference according to your structure
     const snapshot = await get(postsRef);
     if (snapshot.exists()) {
       console.log(Object.values(snapshot.val()));
@@ -47,6 +47,7 @@ const ViewPrimaryIncome = () => {
   });
   return (
     <div>
+      {" "}
       <div className="grid border grid-cols-12">
         <div className="border col-span-2">
           <div className="flex justify-between">
@@ -89,43 +90,59 @@ const ViewPrimaryIncome = () => {
           {/* "/home/:id/viewPrimaryIncome" */}
         </div>
         <div className="col-span-7">
-          {data.length > 0 ? (
-            <>
-              {data.map((item, index) => {
-                return (
-                  <>
-                    <div className="border m-4">
-                      <div>Amount - {item.amount}</div>
-                      <div>date - {item.date}</div>
-                      <div>description - {item.description}</div>
-                      <div>option - {item.option}</div>
-                      <div>
-                        timestamp - {new Date(item.timestamp).getDate()}-
-                        {new Date(item.timestamp).getMonth()}-
-                        {new Date(item.timestamp).getFullYear()} /{" "}
-                        {new Date(item.timestamp).getHours()}:
-                        {new Date(item.timestamp).getMinutes()}:
-                        {new Date(item.timestamp).getSeconds()}{" "}
-                        {Number(new Date(item.timestamp).getHours()) > 12 ? (
-                          <>PM</>
-                        ) : (
-                          <>AM</>
-                        )}
+          <div className="col-span-7">
+            {data.length > 0 ? (
+              <>
+                {data.map((item, index) => {
+                  return (
+                    <>
+                      <div className="border m-4">
+                        <div>Amount - {item.amount}</div>
+                        <div>date - {item.date}</div>
+                        <div>description - {item.description}</div>
+                        <div>
+                          {" "}
+                          {item.modeOffline ? (
+                            <>Offline:-{item.modeOffline}</>
+                          ) : null}
+                        </div>
+                        <div>
+                          {" "}
+                          {item.onlineMode ? (
+                            <>Offline:-{item.onlineMode}</>
+                          ) : null}
+                        </div>
+                        <div>
+                          timestamp - {new Date(item.timestamp).getDate()}-
+                          {new Date(item.timestamp).getMonth()}-
+                          {new Date(item.timestamp).getFullYear()} /{" "}
+                          {new Date(item.timestamp).getHours()}:
+                          {new Date(item.timestamp).getMinutes()}:
+                          {new Date(item.timestamp).getSeconds()}{" "}
+                          {Number(new Date(item.timestamp).getHours()) > 12 ? (
+                            <>PM</>
+                          ) : (
+                            <>AM</>
+                          )}
+                        </div>
                       </div>
-                      <div>Mode - {item.type}</div>
-                    </div>
-                  </>
-                );
-              })}
-            </>
-          ) : (
-            <>No any primary income available</>
-          )}
+                    </>
+                  );
+                })}
+              </>
+            ) : (
+              <>No any primary income available</>
+            )}
+          </div>
         </div>
-        <div className="col-span-3"> Total Income- {totalAmount}</div>
+        <div className="col-span-3">
+          {" "}
+          <div>Total Income in Indian Rupee - Rs {totalAmount}</div>
+          <div>Total Income in USD - $ {totalAmount * 0.012}</div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ViewPrimaryIncome;
+export default ViewExpendtureSection;

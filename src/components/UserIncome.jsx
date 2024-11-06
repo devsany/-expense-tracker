@@ -213,6 +213,19 @@ const UserIncome = () => {
               Secondary Income
             </NavLink>
           </div>
+          <div>
+            <NavLink to={`/home/${id}/input_expencess`}>
+              Expendture section
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/view_expencess`}>
+              Anylise Expencess section
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to={`/home/${id}/view_summary`}>Summary</NavLink>
+          </div>
           {/* "/home/:id/viewPrimaryIncome" */}
         </div>
         <div className="border col-span-10">
