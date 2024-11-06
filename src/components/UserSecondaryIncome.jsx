@@ -8,7 +8,12 @@ const UserSecondaryIncome = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const { id } = useParams();
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+  const toggleSidebar = () => {
+    console.log("clicked");
+    setSidebarOpen(!isSidebarOpen);
+  };
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -57,12 +62,59 @@ const UserSecondaryIncome = () => {
   return (
     <div>
       <div className=" ">
+        <button
+          data-drawer-target="sidebar-multi-level-sidebar"
+          data-drawer-toggle="sidebar-multi-level-sidebar"
+          aria-controls="sidebar-multi-level-sidebar"
+          aria-expanded="false" // Will be set to true when sidebar is open
+          type="button"
+          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          onClick={toggleSidebar}
+        >
+          <span className="sr-only">Open sidebar</span>
+          {isSidebarOpen ? (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </>
+          ) : (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-6 transform  rotate-45"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </>
+          )}
+        </button>
         {/* custome navbar */}
 
         <aside
           id="sidebar-multi-level-sidebar"
-          className="fixed   left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-          aria-label="Sidebar"
+          className={` fixed left-0 z-40 w-64 h-screen transition-transform  ${
+            isSidebarOpen ? " -translate-x-full" : " -translate-x-0"
+          }  sm:translate-x-0`}
         >
           <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
@@ -144,7 +196,7 @@ const UserSecondaryIncome = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/viewPrimaryIncome`}
                     >
-                      <span className="ms-3">Primary Income Anylysis</span>
+                      <span className="ms-3">Primary Income analysis</span>
                     </NavLink>
                   </li>
                   <li>
@@ -153,7 +205,7 @@ const UserSecondaryIncome = () => {
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         to={`/home/${id}/viewSecondaryIncome`}
                       >
-                        <span className="ms-3">Secondary Income Anylysis</span>
+                        <span className="ms-3">Secondary Income analysis</span>
                       </NavLink>
                     </li>
                   </li>
@@ -207,7 +259,7 @@ const UserSecondaryIncome = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/input_expencess`}
                     >
-                      <span className="ms-3">Daily Expendture</span>
+                      <span className="ms-3">Daily Expenditure</span>
                     </NavLink>
                   </li>
 
@@ -216,7 +268,7 @@ const UserSecondaryIncome = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/view_expencess`}
                     >
-                      <span className="ms-3"> View Expendture</span>
+                      <span className="ms-3"> View Expenditure</span>
                     </NavLink>
                   </li>
                 </ul>
@@ -305,48 +357,145 @@ const UserSecondaryIncome = () => {
             </ul>
           </div>
         </aside>
-        <div className="p-4 sm:ml-64 ">
-          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <div className="col-span-7">
-              {data.length > 0 ? (
-                <>
-                  {data.map((item, index) => {
-                    return (
-                      <>
-                        <div className="  m-4">
-                          <div>Amount - {item.amount}</div>
-                          <div>date - {item.date}</div>
-                          <div>description - {item.description}</div>
-                          <div>option - {item.option}</div>
-                          <div>
-                            timestamp - {new Date(item.timestamp).getDate()}-
-                            {new Date(item.timestamp).getMonth()}-
-                            {new Date(item.timestamp).getFullYear()} /{" "}
-                            {new Date(item.timestamp).getHours()}:
-                            {new Date(item.timestamp).getMinutes()}:
-                            {new Date(item.timestamp).getSeconds()}{" "}
-                            {Number(new Date(item.timestamp).getHours()) >
-                            12 ? (
-                              <>PM</>
-                            ) : (
-                              <>AM</>
-                            )}
-                          </div>
-                          <div>Mode - {item.type}</div>
-                        </div>
-                      </>
-                    );
-                  })}
-                </>
-              ) : (
-                <>No any primary income available</>
-              )}
+        <div className="  ">
+          <div className="p-4 sm:ml-64      ">
+            <div className="p-4 border-2  bg-purple-200 border-gray-500 border-dashed rounded-lg dark:border-gray-700">
+              <div className="">
+                {" "}
+                <span className="font-semibold text-gray-800">
+                  Secondary Total Income (STI) - ₹ {totalAmount}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="p-4 sm:ml-64 ">
-          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <div className="col-span-3"> Total Income- {totalAmount}</div>
+          <div className="p-4 sm:ml-64     ">
+            <div className="p-4 border-2 h-[430px] overflow-y-auto border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+              <div className="col-span-7">
+                {data.length > 0 ? (
+                  <>
+                    {data.map((item, index) => {
+                      return (
+                        <>
+                          <div className="ps-2 my-2 first:mt-0">
+                            <h3 className="text-xs font-medium uppercase text-gray-500 mt-1 text-xs  text-gray-600">
+                              <div className="flex">
+                                <div>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                                    />
+                                  </svg>
+                                </div>
+                                <div className="ml-1">date - {item.date}</div>
+                              </div>
+                            </h3>
+                          </div>
+                          {/* <!-- End Heading --> */}
+
+                          {/* <!-- Item --> */}
+                          <div className="flex gap-x-3">
+                            {/* <!-- Icon --> */}
+                            <div className="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200">
+                              <div className="relative z-10 size-7 flex justify-center items-center">
+                                <div className="size-2 rounded-full bg-gray-400"></div>
+                              </div>
+                            </div>
+                            {/* <!-- End Icon --> */}
+
+                            {/* <!-- Right Content --> */}
+                            <div className="grow pt-0.5 pb-8">
+                              <h3 className="flex gap-x-1.5 font-semibold text-gray-800">
+                                <svg
+                                  className="shrink-0 size-4 mt-1"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                                  <polyline points="14 2 14 8 20 8"></polyline>
+                                  <line x1="16" x2="8" y1="13" y2="13"></line>
+                                  <line x1="16" x2="8" y1="17" y2="17"></line>
+                                  <line x1="10" x2="8" y1="9" y2="9"></line>
+                                </svg>
+                                <div className="">
+                                  <div>Amount - ₹ {item.amount} </div>
+
+                                  <div className="text-xs ">
+                                    {new Date(item.timestamp).getHours()}:
+                                    {new Date(item.timestamp).getMinutes()}:
+                                    {new Date(item.timestamp).getSeconds()}{" "}
+                                    {Number(
+                                      new Date(item.timestamp).getHours()
+                                    ) > 12 ? (
+                                      <>PM</>
+                                    ) : (
+                                      <>AM</>
+                                    )}
+                                  </div>
+                                </div>
+                              </h3>
+                              <p className="mt-1 text-sm text-gray-600">
+                                {" "}
+                                Description -{" "}
+                                {item.description ? (
+                                  <>{item.description}</>
+                                ) : (
+                                  <>No Description Selected</>
+                                )}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-600">
+                                {" "}
+                                category -{" "}
+                                {item.category ? (
+                                  <>{item.category}</>
+                                ) : (
+                                  <>No category Selected</>
+                                )}
+                              </p>
+
+                              <button
+                                type="button"
+                                className="mt-1 -ms-1 p-1 inline-flex items-center gap-x-2 text-xs rounded-lg border border-transparent text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+                              >
+                                <img
+                                  className="shrink-0 size-4 rounded-full"
+                                  src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+                                  alt="Avatar"
+                                />
+                                <p className="  text-xs text-gray-600">
+                                  Mode - {item.type}
+                                </p>
+                              </button>
+                            </div>
+                            {/* <!-- End Right Content --> */}
+                          </div>
+                          {/* <!-- End Item --> */}
+                        </>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="flex gap-x-1.5 font-semibold text-gray-800">
+                    No any Secondary income available
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

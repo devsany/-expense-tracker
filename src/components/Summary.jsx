@@ -12,7 +12,12 @@ const Summary = () => {
   const [data2, setData2] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
+  const toggleSidebar = () => {
+    console.log("clicked");
+    setSidebarOpen(!isSidebarOpen);
+  };
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -35,7 +40,7 @@ const Summary = () => {
         setUserKey(key); // Output: user1 (or whatever the key is)
         console.log(key);
       } else {
-        console.log("John Doe not found");
+        console.log("Data is not found");
       }
     }
   };
@@ -95,11 +100,61 @@ const Summary = () => {
   return (
     <div>
       <div className=" ">
+        <div className="">
+          <button
+            data-drawer-target="sidebar-multi-level-sidebar"
+            data-drawer-toggle="sidebar-multi-level-sidebar"
+            aria-controls="sidebar-multi-level-sidebar"
+            aria-expanded="false" // Will be set to true when sidebar is open
+            type="button"
+            className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            onClick={toggleSidebar}
+          >
+            <span className="sr-only">Open sidebar</span>
+            {isSidebarOpen ? (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="size-6 transform  rotate-45"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
         {/* custome navbar */}
 
         <aside
           id="sidebar-multi-level-sidebar"
-          className="fixed   left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+          className={` fixed left-0 z-40 w-64 h-screen transition-transform  ${
+            isSidebarOpen ? " -translate-x-full" : " -translate-x-0"
+          }  sm:translate-x-0`}
           aria-label="Sidebar"
         >
           <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -182,7 +237,7 @@ const Summary = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/viewPrimaryIncome`}
                     >
-                      <span className="ms-3">Primary Income Anylysis</span>
+                      <span className="ms-3">Primary Income analysis</span>
                     </NavLink>
                   </li>
                   <li>
@@ -191,7 +246,7 @@ const Summary = () => {
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         to={`/home/${id}/viewSecondaryIncome`}
                       >
-                        <span className="ms-3">Secondary Income Anylysis</span>
+                        <span className="ms-3">Secondary Income analysis</span>
                       </NavLink>
                     </li>
                   </li>
@@ -245,7 +300,7 @@ const Summary = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/input_expencess`}
                     >
-                      <span className="ms-3">Daily Expendture</span>
+                      <span className="ms-3">Daily Expenditure</span>
                     </NavLink>
                   </li>
 
@@ -254,7 +309,7 @@ const Summary = () => {
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                       to={`/home/${id}/view_expencess`}
                     >
-                      <span className="ms-3"> View Expendture</span>
+                      <span className="ms-3"> View Expenditure</span>
                     </NavLink>
                   </li>
                 </ul>
@@ -345,40 +400,64 @@ const Summary = () => {
         </aside>
         <div className="p-4 sm:ml-64 ">
           <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <div className="m-4 border bg-blue-500">
-              <div>Total amount</div>
-              <div>{totalAmountPrimary + totalAmountSecondary}</div>
-            </div>
-            <div className="m-4 border bg-green-500">
-              <div>Total expencess</div>
-              <div>{totalAmountExpendture}</div>
-            </div>
-            {totalAmountPrimary +
-              totalAmountSecondary -
-              totalAmountExpendture <=
-            0 ? (
-              <>
-                <div className="m-4 border bg-red-500">
-                  <div>Current Amount</div>
-                  <div>
-                    {totalAmountPrimary +
-                      totalAmountSecondary -
-                      totalAmountExpendture}
-                  </div>
+            <span className="pl-4 font-bold  text-gray-800"> Expenditure</span>
+            <div className="p-4  ">
+              <div className="p-4 border-2  bg-blue-100 border-gray-500 border-dashed rounded-lg dark:border-gray-700">
+                <div className="">
+                  {" "}
+                  <span className="font-semibold text-gray-800">
+                    <div>
+                      Total amount - ₹{" "}
+                      {totalAmountPrimary + totalAmountSecondary}{" "}
+                    </div>
+                    <div></div>
+                  </span>
                 </div>
-              </>
-            ) : (
-              <>
-                <div className="m-4 border bg-purple-500">
-                  <div>Current Amount</div>
-                  <div>
-                    {totalAmountPrimary +
-                      totalAmountSecondary -
-                      totalAmountExpendture}
-                  </div>
+              </div>
+            </div>
+            <div className="p-4  ">
+              <div className="p-4 border-2  bg-purple-200 border-gray-500 border-dashed rounded-lg dark:border-gray-700">
+                <div className="">
+                  {" "}
+                  <span className="font-semibold text-gray-800">
+                    <div>Total expencess - ₹ {totalAmountExpendture} </div>
+                    <div></div>
+                  </span>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
+            <div className="p-4  ">
+              {totalAmountPrimary +
+                totalAmountSecondary -
+                totalAmountExpendture <=
+              0 ? (
+                <>
+                  <div className="p-4 border-2  bg-red-200 border-gray-500 border-dashed rounded-lg dark:border-gray-700">
+                    <span className="font-semibold text-gray-800">
+                      <div>
+                        Current Amount - ₹{" "}
+                        {totalAmountPrimary +
+                          totalAmountSecondary -
+                          totalAmountExpendture}{" "}
+                      </div>
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="p-4 border-2  bg-green-200 border-gray-500 border-dashed rounded-lg dark:border-gray-700">
+                    <span className="font-semibold text-gray-800">
+                      <div>
+                        Current Amount - ₹{" "}
+                        {totalAmountPrimary +
+                          totalAmountSecondary -
+                          totalAmountExpendture}{" "}
+                      </div>
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

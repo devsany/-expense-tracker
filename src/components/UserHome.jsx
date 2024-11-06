@@ -13,7 +13,7 @@ const UserHome = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
   const { id } = useParams();
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
     console.log("clicked");
@@ -236,7 +236,7 @@ const UserHome = () => {
                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         to={`/home/${id}/viewPrimaryIncome`}
                       >
-                        <span className="ms-3">Primary Income Anylysis</span>
+                        <span className="ms-3">Primary Income analysis</span>
                       </NavLink>
                     </li>
                     <li>
