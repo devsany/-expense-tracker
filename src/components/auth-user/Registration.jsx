@@ -10,6 +10,13 @@ import {
 } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import firebase from "firebase/compat/app";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowRightCircle,
+  ArrowRightFromLine,
+  Umbrella,
+} from "lucide-react";
 
 const Registration = () => {
   const [data, setData] = useState([]);
@@ -158,45 +165,94 @@ const Registration = () => {
     generateRandomString();
   }, []);
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit}>
-        <label htmlFor={field[inc].name}>{field[inc].name}</label>
-        <input
-          id={field[inc]}
-          name={field[inc]}
-          type={field[inc].type}
-          placeholder={field[inc].placeholder}
-          onChange={handleInputChange}
-          value={answers[field[inc].key] || ""}
+    <div className="flex relative">
+      <div className="w-[200px] h-[200px] absolute bg-blue-200 blur-3xl rounded-full"></div>
+      <div className="      ml-10">
+        <img
+          src="3d-render-cartoon-office-worker-accountant-manager-clean-simple-design-office-background_1297092-1045-removebg-preview.png"
+          alt="desk box"
         />
-        {errors && <div className="">{errors.name}</div>}
-
-        {inc > 0 && (
-          <div
-            onClick={() => {
-              setInc((p) => p - 1);
-            }}
-          >
-            Back
+      </div>
+      <div className="flex  ml-[50px] w-[200px] md:w-[500px] md:ml-[180px]  items-center h-screen">
+        <form action="" onSubmit={handleSubmit}>
+          {/* <label htmlFor={field[inc].name}>{field[inc].name}</label>
+          <input
+            id={field[inc]}
+            name={field[inc]}
+            type={field[inc].type}
+            placeholder={field[inc].placeholder}
+            onChange={handleInputChange}
+            value={answers[field[inc].key] || ""}
+          /> */}
+          <div>
+            <span className="font-semibold text-lg text-gray-700">
+              Fill form *
+            </span>
           </div>
-        )}
-        {inc > 4 ? (
-          <>
-            <button>Submit</button>
-          </>
-        ) : (
-          <>
-            <div
-              onClick={() => {
-                setInc((p) => p + 1);
-                console.log(inc);
-              }}
+          <div class="relative">
+            <input
+              id={field[inc]}
+              name={field[inc]}
+              type={field[inc].type}
+              placeholder={field[inc].placeholder}
+              onChange={handleInputChange}
+              value={answers[field[inc].key] || ""}
+              className="block px-2.5  mb-3 pb-2.5 border pt-4 w-[400px] text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+            />
+            <label
+              htmlFor={field[inc].name}
+              for="floating_outlined"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
             >
-              Nexts
+              {field[inc].name}
+            </label>
+            {errors && <div className="">{errors.name}</div>}
+          </div>
+          <div className="flex float-end ">
+            <div className="mr-3">
+              {inc > 0 && (
+                <div
+                  onClick={() => {
+                    setInc((p) => p - 1);
+                  }}
+                  className="cursor-pointer w-[100px]"
+                >
+                  <div className="flex focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    <ArrowLeft className="w-5 text-[18px] mt-[2px]  text-white" />
+                    <div className="font-semibold ">Back</div>{" "}
+                  </div>
+                </div>
+              )}
             </div>
-          </>
-        )}
-      </form>
+            <div>
+              {inc > 4 ? (
+                <>
+                  <div className="flex focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    <div className="font-semibold ">Submit</div>{" "}
+                    <Umbrella className="w-5 text-[14px] ml-[5px] mt-[2px]  text-white" />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    onClick={() => {
+                      setInc((p) => p + 1);
+                      console.log(inc);
+                    }}
+                    className="cursor-pointer w-[100px]"
+                  >
+                    <div className="flex focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                      <div className="font-semibold ">Next</div>{" "}
+                      <ArrowRight className="w-5 ml-1 text-[18px] mt-[2px]  text-white" />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
