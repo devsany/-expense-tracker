@@ -2,6 +2,7 @@ import { get, getDatabase, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import app from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { Umbrella } from "lucide-react";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -44,10 +45,10 @@ const Login = () => {
 
           // nav(`/home/${email}4Ft3%?${password}`);
         } else {
-          setMessage2("fields are correct");
+          setMessage2("Fields are Incorrect");
         }
       } else {
-        setMessage("invalid credential");
+        setMessage("Invalid Credential");
       }
     }
     setErrors(error);
@@ -65,31 +66,73 @@ const Login = () => {
   }, [allow]);
   return (
     <div>
-      <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-      />
-      <div>{errors && <div className="text-red-500">{errors.email}</div>}</div>
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your Password"
-      />
-      <div>
-        {errors && <div className="text-red-500">{errors.password}</div>}
+      <div className="flex justify-center items-center   h-screen">
+        <form action="" className="w-[400px]" onClick={handleSubmitLogin}>
+          <div className="mb-5 text-center text-3xl font-semibold text-gray-600">
+            Login
+          </div>
+          <div className="mb-3">
+            <div class="relative">
+              <input
+                required
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block px-2.5    pb-2.5 border pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                for="floating_outlined"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+              >
+                Enter Email *
+              </label>
+            </div>
+            <div className="font-semibold">
+              {errors && <div className="text-red-500">{errors.email}</div>}
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <div class="relative">
+              <input
+                required
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block px-2.5 pb-2.5 border pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                for="floating_outlined"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+              >
+                Enter Password *
+              </label>
+            </div>
+
+            <div className="font-semibold">
+              {errors && <div className="text-red-500">{errors.password}</div>}
+            </div>
+          </div>
+          <div className="font-semibold text-red-500">
+            {message && <>{message}</>}
+          </div>
+          <div className="font-semibold text-red-500">
+            {message2 && <>{message2}</>}
+          </div>
+          <button type="submit">
+            <div className="flex transition duration-300 focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-green-400  hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              <div className="font-semibold ">Submit</div>{" "}
+              <Umbrella className="w-5 text-[14px] ml-[5px] mt-[2px]  text-white" />
+            </div>
+          </button>
+        </form>
       </div>
-      <div>{message && <>{message}</>}</div>
-      <div>{message2 && <>{message2}</>}</div>
-      <button onClick={handleSubmitLogin}>Submit</button>
     </div>
   );
 };

@@ -218,8 +218,8 @@ const Registration = () => {
                   }}
                   className="cursor-pointer w-[100px]"
                 >
-                  <div className="flex focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                    <ArrowLeft className="w-5 text-[18px] mt-[2px]  text-white" />
+                  <div className="flex transition duration-300 focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    <ArrowLeft className="w-5  text-[18px] mt-[2px]  text-white" />
                     <div className="font-semibold ">Back</div>{" "}
                   </div>
                 </div>
@@ -228,7 +228,7 @@ const Registration = () => {
             <div>
               {inc > 4 ? (
                 <>
-                  <div className="flex focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                  <div className="flex transition duration-300 focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                     <div className="font-semibold ">Submit</div>{" "}
                     <Umbrella className="w-5 text-[14px] ml-[5px] mt-[2px]  text-white" />
                   </div>
@@ -242,7 +242,7 @@ const Registration = () => {
                     }}
                     className="cursor-pointer w-[100px]"
                   >
-                    <div className="flex focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    <div className="flex transition duration-300 focus:outline-none  text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                       <div className="font-semibold ">Next</div>{" "}
                       <ArrowRight className="w-5 ml-1 text-[18px] mt-[2px]  text-white" />
                     </div>
