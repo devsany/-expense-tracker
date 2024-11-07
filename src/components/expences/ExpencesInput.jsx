@@ -485,7 +485,6 @@ const ExpencesInput = () => {
                     </span>
                     <div class="relative">
                       <input
-                        required
                         type="text"
                         id="online"
                         name="online"

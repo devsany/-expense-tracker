@@ -68,8 +68,12 @@ const Login = () => {
     <div>
       <div className="flex justify-center items-center   h-screen">
         <form action="" className="w-[400px]" onClick={handleSubmitLogin}>
-          <div className="mb-5 text-center text-3xl font-semibold text-gray-600">
+          <img src="/Screenshot 2024-11-06 163048.png" alt="" />
+          <div className="  text-center text-3xl font-semibold text-gray-600">
             Login
+          </div>
+          <div className="text-center mb-5 font-thin text-slate-700">
+            Welcome Back
           </div>
           <div className="mb-3">
             <div class="relative">

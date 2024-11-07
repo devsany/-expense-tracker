@@ -140,6 +140,7 @@ const UserIncome = () => {
           console.log("Data pushed successfully!");
           // Clear the form after submission
           alert("data is pushed");
+          setPri("");
         })
         .catch((error) => {
           console.error("Error pushing data:", error);

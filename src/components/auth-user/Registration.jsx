@@ -9,14 +9,7 @@ import {
   serverTimestamp,
 } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-import firebase from "firebase/compat/app";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowRightCircle,
-  ArrowRightFromLine,
-  Umbrella,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Umbrella } from "lucide-react";
 
 const Registration = () => {
   const [data, setData] = useState([]);
@@ -187,6 +180,19 @@ const Registration = () => {
             value={answers[field[inc].key] || ""}
           /> */}
             <div>
+              <div className="flex justify-center">
+                <img
+                  className="w-[200px] "
+                  src="/Screenshot 2024-11-06 163048.png"
+                  alt=""
+                />
+              </div>
+              <div className="  text-center text-3xl font-semibold text-gray-600">
+                Registration
+              </div>
+              <div className="text-center mb-5 font-thin text-slate-700">
+                Welcome !!!
+              </div>
               <span className="font-semibold text-lg text-gray-700">
                 Fill form *
               </span>
@@ -230,7 +236,10 @@ const Registration = () => {
               <div>
                 {inc > 4 ? (
                   <>
-                    <div className="flex transition duration-300 focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    <div
+                      onClick={handleSubmit}
+                      className="flex transition duration-300 focus:outline-none w-[130px] cursor-pointer  text-white bg-emerald-500 hover:bg-emerald-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-purple-400 hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                    >
                       <div className="font-semibold ">Submit</div>{" "}
                       <Umbrella className="w-5 text-[14px] ml-[5px] mt-[2px]  text-white" />
                     </div>
