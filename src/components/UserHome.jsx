@@ -1,5 +1,10 @@
 import { get, getDatabase, push, ref } from "firebase/database";
-import { Settings, SquareBottomDashedScissors, User } from "lucide-react";
+import {
+  ChartArea,
+  Settings,
+  SquareBottomDashedScissors,
+  User,
+} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import app from "../firebase/firebaseConfig";
@@ -82,6 +87,7 @@ const UserHome = () => {
           console.log("Data pushed successfully!");
           // Clear the form after submission
           alert("data is pushed");
+          setMode("");
         })
         .catch((error) => {
           console.error("Error pushing data:", error);
@@ -401,23 +407,65 @@ const UserHome = () => {
           </aside>
           <div className="p-4 sm:ml-64 ">
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-              <label htmlFor="mode">Mode of income</label>
-              <input
-                type="text"
-                placeholder="Enter mode of income"
-                id="mode"
-                name="mode"
-                value={mode}
-                onChange={(e) => setMode(e.target.value)}
-                required
-              />
-              {errors && <div className="text-red-600">{errors.number}</div>}
-              {errors && <div className="text-red-600">{errors.mode}</div>}
-              <button onClick={handleAdd}>Add</button>
+              <div className="font-semibold text-gray-600">
+                Fill Mode of Income *
+              </div>
+              <div className="mb-2">
+                <div class="relative">
+                  <input
+                    type="text"
+                    placeholder="Enter mode of income"
+                    id="mode"
+                    name="mode"
+                    value={mode}
+                    onChange={(e) => setMode(e.target.value)}
+                    required
+                    class="block mt-2  px-2.5 pb-2.5 border pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" "
+                  />
+                  <label
+                    for="floating_outlined"
+                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  >
+                    Mode of income
+                  </label>
+                </div>
+                {errors && (
+                  <div className="font-semibold text-red-600">
+                    {errors.number}
+                  </div>
+                )}
+                {errors && (
+                  <div className="font-semibold text-red-600">
+                    {errors.mode}
+                  </div>
+                )}
+              </div>
+              <button onClick={handleAdd}>
+                <div className="flex transition duration-300 focus:outline-none w-[100px] cursor-pointer  text-white bg-emerald-500 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-semibold rounded-lg text-md hover:shadow-green-400  hover:shadow-md  px-5 py-2.5   dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                  <div className="font-semibold ">Add</div>{" "}
+                  <ChartArea className="w-5 text-[14px] ml-[5px] mt-[2px]  text-white" />
+                </div>
+              </button>
 
-              {modeItem.map((item) => (
-                <li>{item}</li>
-              ))}
+              <div className="mr-2 flex">
+                {modeItem.map((item) => (
+                  <div className="mr-3">
+                    {" "}
+                    <button
+                      type="button"
+                      className="mt-1 -ms-1 p-1 inline-flex items-center gap-x-2 text-xs rounded-lg border border-transparent text-gray-500  bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+                    >
+                      <img
+                        className="shrink-0 size-4 rounded-full"
+                        src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+                        alt="Avatar"
+                      />
+                      <p className="  text-xs text-gray-600">{item}</p>
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           {/* <div className="flex justify-between">
