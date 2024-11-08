@@ -61,7 +61,7 @@ const MemberShip = () => {
         </div>
         <div>
           <div className=" flex m-4 text-pink-700 justify-center">
-            <div className="border flex   p-4 bg-gray-100 rounded-lg shadow-md  w-[300px]">
+            <div className="border flex   p-4 bg-yellow-100 rounded-lg shadow-md  w-[300px]">
               <div>
                 <div className="md:w-12  w-9 h-9  md:h-12">
                   <div>
