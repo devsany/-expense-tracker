@@ -7,6 +7,8 @@ import ImageSideSection from "../HomeUiComponents/ImageSideSection";
 import MemberShip from "../HomeUiComponents/MemberShip";
 import ClientSection from "../HomeUiComponents/ClientSection";
 import LocalUser from "../HomeUiComponents/LocalUser";
+import Footer from "../HomeUiComponents/Footer";
+import ViewSection from "../HomeUiComponents/ViewSection";
 
 const Home = () => {
   const [allow, setAllow] = useState(false);
@@ -129,6 +131,8 @@ const Home = () => {
         <ClientSection />
         <MemberShip />
         <LocalUser />
+        <ViewSection />
+        <Footer />
       </div>
     </div>
   );
