@@ -15,3 +15,14 @@ const CardWork = (props) => {
 };
 
 export default CardWork;
+
+const data1 = [
+  {
+    uniqueId: "asdf",
+    message: "hii my name is sunny",
+  },
+  {
+    uniqueId: "jkl;",
+    message: "hii my name is vandana",
+  }
+];

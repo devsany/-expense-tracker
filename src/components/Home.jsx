@@ -3,6 +3,7 @@ import ImageCarousel from "../HomeUiComponents/ImageInterval";
 import CardWork from "../HomeUiComponents/CardWork";
 import { File, Folder } from "lucide-react";
 import Child from "./Child/Child";
+import ImageSideSection from "../HomeUiComponents/ImageSideSection";
 
 const Home = () => {
   const [allow, setAllow] = useState(false);
@@ -80,52 +81,49 @@ const Home = () => {
   };
   console.log(structure);
   return (
-    <div>
-      {structure.children.map((item, index) => {
+    <div className="bg-gradient-to-b from-orange-50">
+      {/* {structure.children.map((item, index) => {
           return <Child values={item} />;
-        })}
-      {/* <div className="h-[100vw] bg-gradient-to-b from-orange-50">
-       
-        <div className="relative ">
-          <div className="">
-            <div className="absolute"></div>
-            <div className=" ">
-              <ImageCarousel />
-            </div>
+        })} */}
+      <div className="h-screen   ">
+        <div className="flex justify-center pt-[60px]">
+          <div className="bg-orange-400 shadow-md shadow-orange-300 text-white pl-5 pr-5 rounded-3xl">
+            Track Your Finance
           </div>
         </div>
-      </div>
-      <div className="grid grid-cols-4">
-        <div className="bg-white ">
-          <CardWork
-            img="/CardWork/LowVolatility.png"
-            header="Low Volatility"
-            content="Go for stable returns at low volatility levels"
-          />
+        <div className="mt-10 mb-10 ml-[100px] mr-[100px]">
+          <hr />
         </div>
-        <div>
-          <CardWork
-            img="/CardWork/Thematic.png"
-            header="Thematic"
-            content="Explore portfolios on disruptive ideas & long-term trends"
-          />
+        <div className="font-mono font-bold text-[30px] md:text-[70px] text-center text-gray-800">
+          Stay on Top of Your Budget, Anytime, Anywhere!
         </div>
+        <div className=" flex justify-center ">
+          <span className="w-[75%] font-thin text-slate-700 text-[14px] md:text-[18px] text-center">
+            {" "}
+            "Our expenses tracker lets you easily monitor spending, categorize
+            expenses, and gain insights into your financial habits. Accessible
+            on any device, it’s the perfect tool to keep you connected to your
+            budget and make smart financial choices on the go."
+          </span>
+        </div>
+        <div className="flex justify-center mt-10 mb-10 items-center">
+          <div className="pl-6 pr-6 pt-2 pb-2 font-bold rounded-full shadow-md shadow-gray-300 text-gray-100 bg-pink-800">
+            Register as a User
+          </div>
+          <div className="font-thin ml-3">Join Us</div>
+        </div>
+        {/* <div className="relative ">
+          <div className="">
+            <div className="absolute">
 
-        <div>
-          <CardWork
-            img="/CardWork/LowInv.png"
-            header="Low Inv. Amount"
-            content="Start small budget investments for less than ₹5000!"
-          />
-        </div>
-        <div>
-          <CardWork
-            img="/CardWork/Tracker.png"
-            header="Trackers"
-            content="Take exposure to important sectors of the economy"
-          />
-        </div>
-      </div> */}
+            </div>
+            <div className=" "><ImageCarousel /></div>
+          </div>
+        </div> */}
+      </div>
+      {/* second section Ui start*/}
+
+      
     </div>
   );
 };
