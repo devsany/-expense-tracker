@@ -4,6 +4,9 @@ import CardWork from "../HomeUiComponents/CardWork";
 import { File, Folder } from "lucide-react";
 import Child from "./Child/Child";
 import ImageSideSection from "../HomeUiComponents/ImageSideSection";
+import MemberShip from "../HomeUiComponents/MemberShip";
+import ClientSection from "../HomeUiComponents/ClientSection";
+import LocalUser from "../HomeUiComponents/LocalUser";
 
 const Home = () => {
   const [allow, setAllow] = useState(false);
@@ -85,7 +88,7 @@ const Home = () => {
       {/* {structure.children.map((item, index) => {
           return <Child values={item} />;
         })} */}
-      <div className="h-screen   ">
+      <div className="md:h-screen   ">
         <div className="flex justify-center pt-[60px]">
           <div className="bg-orange-400 shadow-md shadow-orange-300 text-white pl-5 pr-5 rounded-3xl">
             Track Your Finance
@@ -122,8 +125,11 @@ const Home = () => {
         </div> */}
       </div>
       {/* second section Ui start*/}
-
-      
+      <div>
+        <ClientSection />
+        <MemberShip />
+        <LocalUser />
+      </div>
     </div>
   );
 };
