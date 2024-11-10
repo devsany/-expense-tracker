@@ -6,7 +6,7 @@ const Documentation1 = () => {
   return (
     <div>
       <div>
-        <div className="   pt-[20px]">
+        <div className=" md:border-r-2 border-slate-500 md:pr-5 md:m-3   pt-[20px]">
           <div className="ml-[40px]">
             <label
               for="countries"

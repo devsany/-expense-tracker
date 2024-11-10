@@ -11,6 +11,9 @@ import ExpencesInput from "./components/expences/ExpencesInput";
 import ViewExpendtureSection from "./components/expences/ViewExpendtureSection";
 import Summary from "./components/Summary";
 import Documentation from "./components/Documentation/Documentation";
+import V1 from "./components/Documentation/View/V1";
+import V2 from "./components/Documentation/View/V2";
+import V3 from "./components/Documentation/View/V3";
 
 function App() {
   return (
@@ -137,6 +140,12 @@ function App() {
             element={<ViewExpendtureSection />}
           />
           <Route path="/documentation" element={<Documentation />} />
+
+          {/* view documentation section */}
+          <Route path="/documentation/v1" element={<V1 />} />
+          <Route path="/documentation/v2" element={<V2 />} />
+          <Route path="/documentation/v3" element={<V3 />} />
+
           <Route path="/home/:id/view_summary" element={<Summary />} />
           {/* /home/${id}/Income */}
         </Routes>

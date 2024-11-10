@@ -9,13 +9,18 @@ const Documentation = () => {
   return (
     <div>
       <div className="bg-orange-100 h-screen">
-        <Home1 />
-        <Documentation1 />
-        <Documentation2 />
+        <div className="md:grid md:grid-cols-2">
+          <div>
+            <Documentation1 />
+          </div>
+          <div>
+            <Documentation2 />
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
   );
 };
 
-export default Documentation;
+export default React.memo(Documentation);
