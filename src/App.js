@@ -14,6 +14,7 @@ import Documentation from "./components/Documentation/Documentation";
 import V1 from "./components/Documentation/View/V1";
 import V2 from "./components/Documentation/View/V2";
 import V3 from "./components/Documentation/View/V3";
+import Setting from "./components/Setting";
 
 function App() {
   return (
@@ -139,6 +140,7 @@ function App() {
             path="/home/:id/view_expencess"
             element={<ViewExpendtureSection />}
           />
+          <Route path="/home/:id/setting" element={<Setting />} />
           <Route path="/documentation" element={<Documentation />} />
 
           {/* view documentation section */}
